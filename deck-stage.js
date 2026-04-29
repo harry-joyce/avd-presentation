@@ -50,7 +50,9 @@
   const DESIGN_W_DEFAULT = 1920;
   const DESIGN_H_DEFAULT = 1080;
   const STORAGE_PREFIX = 'deck-stage:slide:';
-  const OVERLAY_HIDE_MS = 1800;
+  const OVERLAY_HIDE_DELAY_MS = 800;   // ms after cursor leaves zone before hiding
+  const OVERLAY_PROXIMITY_PX = 160;   // px from bottom edge that wakes the overlay
+  const OVERLAY_INTRO_MS = 5000;      // ms to show overlay on first load
   const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
 
   const pad2 = (n) => String(n).padStart(2, '0');
@@ -272,7 +274,7 @@
       this._index = 0;
       this._slides = [];
       this._hideTimer = null;
-      this._mouseIdleTimer = null;
+      this._inZone = false;
       this._storageKey = STORAGE_PREFIX + (location.pathname || '/');
 
       this._onKey = this._onKey.bind(this);
@@ -304,7 +306,6 @@
       window.removeEventListener('resize', this._onResize);
       window.removeEventListener('mousemove', this._onMouseMove);
       if (this._hideTimer) clearTimeout(this._hideTimer);
-      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
     }
 
     attributeChangedCallback() {
@@ -425,6 +426,9 @@
       this._restoreIndex();
       this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
       this._fit();
+      // Show navigator for 5 s on first load so users can discover it.
+      this._showOverlay();
+      this._scheduleHide(OVERLAY_INTRO_MS);
     }
 
     _collectSlides() {
@@ -519,13 +523,22 @@
       if (showOverlay) this._flashOverlay();
     }
 
-    _flashOverlay() {
+    // No-op — overlay is now proximity-driven only, not triggered by navigation.
+    _flashOverlay() {}
+
+    _showOverlay() {
       if (!this._overlay) return;
       this._overlay.setAttribute('data-visible', '');
-      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._hideTimer) { clearTimeout(this._hideTimer); this._hideTimer = null; }
+    }
+
+    _scheduleHide(delay = OVERLAY_HIDE_DELAY_MS) {
+      if (!this._overlay || this._hideTimer) return;
       this._hideTimer = setTimeout(() => {
-        this._overlay.removeAttribute('data-visible');
-      }, OVERLAY_HIDE_MS);
+        this._hideTimer = null;
+        // Don't hide if the cursor is still in the proximity zone.
+        if (!this._inZone) this._overlay.removeAttribute('data-visible');
+      }, delay);
     }
 
     _fit() {
@@ -545,9 +558,13 @@
 
     _onResize() { this._fit(); }
 
-    _onMouseMove() {
-      // Keep overlay visible while mouse moves; hide after idle.
-      this._flashOverlay();
+    _onMouseMove(e) {
+      this._inZone = e.clientY >= window.innerHeight - OVERLAY_PROXIMITY_PX;
+      if (this._inZone) {
+        this._showOverlay();
+      } else if (this._overlay && this._overlay.hasAttribute('data-visible')) {
+        this._scheduleHide();
+      }
     }
 
     _onTapBack(e) {
