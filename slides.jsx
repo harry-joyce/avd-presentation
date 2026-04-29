@@ -2232,25 +2232,25 @@ function Slide12({ variant }) {
               05 — HOW WE CONNECT TO YOUR WORK
             </Eyebrow>
             <BigTitle variant={variant}>
-              One pipeline,{" "}
+              How our work,{" "}
               <span
                 style={{
                   fontStyle: v.titleItalicAccent ? "italic" : "normal",
                   color: v.accent,
                 }}
               >
-                many hands.
+                connects to yours.
               </span>
             </BigTitle>
           </div>
-          <Body
+          {/* <Body
             variant={variant}
             size={26}
             style={{ flex: "0 0 500px", color: v.muted, marginBottom: 8 }}
           >
             Our output feeds directly into your workflows — here is where the
             join happens.
-          </Body>
+          </Body> */}
         </div>
 
         {/* Pipeline connector strip */}
