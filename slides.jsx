@@ -2197,7 +2197,7 @@ function Slide12({ variant }) {
     },
     {
       code: "AUDIO DESC",
-      team: "Audio Description",
+      team: "Audio Descriptions",
       role: "ENABLE",
       flows: [
         "MediaCenter metadata enabled for descriptions",
@@ -2636,7 +2636,7 @@ function Slide14({ variant }) {
         { name: "Digital Publishing" },
         { name: "Composition" },
         { name: "Sign Language" },
-        { name: "Audio Description" },
+        { name: "Audio Descriptions" },
       ],
     },
     {
@@ -2793,11 +2793,12 @@ function Slide14({ variant }) {
                 color: v.ink,
                 lineHeight: 1.2,
                 marginBottom: 28,
-                fontStyle: v.titleItalicAccent ? "italic" : "normal",
+                fontStyle: v.titleItalicAccent ? "normal" : "normal",
               }}
             >
-              "Every file we package becomes
-              <br />a video in someone's language."
+              Well done for staying
+              <br />
+              until the end 😉
             </div>
             <div
               style={{
