@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AV Distribution · Team Briefing</title>
+<meta name="viewport" content="width=1920, initial-scale=1" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0a09; color: #F4EEE4; }
+  * { box-sizing: border-box; }
+  @keyframes av-blink { 0%, 45% { opacity: 1 } 55%, 100% { opacity: 0.35 } }
+
+  /* Waveform "playing" animation — each bar vertically pulses with its
+     own delay/duration, so the collective effect feels like audio playback. */
+  @keyframes av-wave-pulse {
+    0%   { transform: scaleY(0.35); }
+    50%  { transform: scaleY(1);    }
+    100% { transform: scaleY(0.35); }
+  }
+  .av-wave-playing > div {
+    animation-name: av-wave-pulse;
+    animation-timing-function: cubic-bezier(.4,.0,.2,1);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .av-wave-playing > div { animation: none !important; }
+  }
+
+  /* ───────── Slide entrance animations ─────────
+     Elements tagged [data-anim] start hidden + offset; when their slide
+     receives [data-deck-active] via deck-stage, they ease in with a stagger.
+     Use data-anim="up|right|fade|scale" + data-delay="NN" (index).
+  */
+  [data-anim] {
+    opacity: 0;
+    transition:
+      opacity 620ms cubic-bezier(.22,.8,.2,1),
+      transform 720ms cubic-bezier(.22,.8,.2,1),
+      filter 620ms ease;
+    transition-delay: calc(var(--anim-delay, 0) * 70ms + 120ms);
+    will-change: transform, opacity;
+  }
+  [data-anim="up"]    { transform: translateY(28px); }
+  [data-anim="right"] { transform: translateX(-36px); }
+  [data-anim="fade"]  { filter: blur(4px); }
+  [data-anim="scale"] { transform: scale(0.96); transform-origin: left center; }
+  [data-anim="grow"]  { transform: scaleX(0); transform-origin: left center; }
+
+  /* Vertical grow — for bar-chart columns. Apply to the stack wrapper
+     so the whole stacked column rises from the baseline together. */
+  [data-anim="grow-y"] {
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform 700ms cubic-bezier(.22,.9,.25,1), opacity 400ms ease;
+    transition-delay: calc(var(--anim-delay, 0) * 50ms + 180ms);
+    opacity: 0;
+  }
+
+  [data-deck-active] [data-anim] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-anim] { transition: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  }
+
+  /* Tweaks panel */
+  #tweaks {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    background: #1C1A17;
+    color: #F4EEE4;
+    font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    font-size: 13px;
+    padding: 18px 18px 16px;
+    border: 1px solid #3A352D;
+    min-width: 280px;
+    letter-spacing: 0.04em;
+    display: none;
+  }
+  #tweaks.on { display: block; }
+  #tweaks h4 { margin: 0 0 14px; font-size: 12px; letter-spacing: 0.16em; color: #A89C88; font-weight: 500; text-transform: uppercase; }
+  #tweaks .row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  #tweaks label { color: #A89C88; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+  #tweaks .variants { display: flex; gap: 6px; }
+  #tweaks button {
+    flex: 1;
+    background: transparent;
+    color: #F4EEE4;
+    border: 1px solid #3A352D;
+    padding: 10px 8px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  #tweaks button.active { background: oklch(0.78 0.14 70); color: #1C1A17; border-color: oklch(0.78 0.14 70); }
+  #tweaks .desc { font-size: 11px; color: #A89C88; line-height: 1.5; }
+</style>
+
+
+<script src="deck-stage.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+  <section data-label="01 Cover"           id="slot-1"></section>
+  <section data-label="02 Who We Are"      id="slot-2"></section>
+  <section data-label="03 Role"            id="slot-3"></section>
+  <section data-label="04 Five Functions"  id="slot-4"></section>
+  <section data-label="05 Media Prep"      id="slot-5"></section>
+  <section data-label="06 Packaging"       id="slot-6"></section>
+  <section data-label="07 Reference"       id="slot-7"></section>
+  <section data-label="08 Quality"         id="slot-8"></section>
+  <section data-label="09 Scheduling"      id="slot-9"></section>
+  <section data-label="10 Support"         id="slot-10"></section>
+  <section data-label="11 Invisible Work"  id="slot-11"></section>
+  <section data-label="12 Connected Teams" id="slot-12"></section>
+  <section data-label="13 Close"           id="slot-13"></section>
+  <section data-label="14 Credits"         id="slot-14"></section>
+</deck-stage>
+
+<div id="tweaks" aria-hidden="true">
+  <h4>Tweaks</h4>
+  <div class="row">
+    <label>Visual Variation</label>
+    <div class="variants">
+      <button data-variant="A" class="active">A · Editorial</button>
+      <button data-variant="B">B · Timecode</button>
+      <button data-variant="C">C · Leader</button>
+    </div>
+  </div>
+  <div class="desc" id="variant-desc">
+    Editorial Broadcast — warm cream, serif headlines with a mono support voice.
+  </div>
+</div>
+
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "variant": "A"
+  }/*EDITMODE-END*/;
+
+  window.__TWEAKS = { ...TWEAK_DEFAULTS };
+
+  const descMap = {
+    A: "Editorial Broadcast — warm cream, serif headlines with a mono support voice.",
+    B: "Timecode Grid — cooler paper, all-mono. Operator-console feel.",
+    C: "Film Leader — inked background, amber accents dominant. Cinematic.",
+  };
+
+  function setVariant(v) {
+    window.__TWEAKS.variant = v;
+    document.querySelectorAll('#tweaks .variants button').forEach(b => {
+      b.classList.toggle('active', b.dataset.variant === v);
+    });
+    document.getElementById('variant-desc').textContent = descMap[v];
+    if (window.__renderDeck) window.__renderDeck();
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { variant: v } }, '*');
+    } catch (e) {}
+  }
+
+  document.querySelectorAll('#tweaks .variants button').forEach(b => {
+    b.addEventListener('click', () => setVariant(b.dataset.variant));
+  });
+
+  // Edit-mode protocol
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if (d.type === '__activate_edit_mode') {
+      document.getElementById('tweaks').classList.add('on');
+    } else if (d.type === '__deactivate_edit_mode') {
+      document.getElementById('tweaks').classList.remove('on');
+    }
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="slides.jsx"></script>
+<script type="text/babel">
+  const slideComponents = [
+    Slide01, Slide02, Slide03, Slide04, Slide05, Slide06,
+    Slide07, Slide08, Slide09, Slide10, Slide11, Slide12, Slide13, Slide14
+  ];
+
+  const roots = [];
+  function renderDeck() {
+    const v = window.__TWEAKS.variant || "A";
+    // Set page background to match variant for letterbox
+    const bg = VARIANTS[v].bg;
+    document.body.style.background = bg;
+    slideComponents.forEach((Comp, i) => {
+      const el = document.getElementById('slot-' + (i + 1));
+      if (!el) return;
+      if (!roots[i]) roots[i] = ReactDOM.createRoot(el);
+      roots[i].render(<Comp variant={v} />);
+    });
+  }
+  window.__renderDeck = renderDeck;
+  renderDeck();
+</script>
+
+</body>
+</html>
