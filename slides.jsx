@@ -921,23 +921,27 @@ function FunctionSlide({
             }}
           >
             <ColumnHead variant={variant}>TOOLS & ARTIFACTS</ColumnHead>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              {tools.map((t) => (
-                <div
-                  key={t}
-                  style={{
-                    border: `1px solid ${v.rule}`,
-                    padding: "10px 16px",
-                    fontFamily: v.monoFamily,
-                    fontSize: 20,
-                    letterSpacing: "0.06em",
-                    color: v.ink,
-                  }}
-                >
-                  {t}
-                </div>
-              ))}
-            </div>
+            {tools.some((t) => t.trim()) && (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {tools
+                  .filter((t) => t.trim())
+                  .map((t) => (
+                    <div
+                      key={t}
+                      style={{
+                        border: `1px solid ${v.rule}`,
+                        padding: "10px 16px",
+                        fontFamily: v.monoFamily,
+                        fontSize: 20,
+                        letterSpacing: "0.06em",
+                        color: v.ink,
+                      }}
+                    >
+                      {t}
+                    </div>
+                  ))}
+              </div>
+            )}
             <div style={{ marginTop: 12 }}>
               <SideIllustration kind={sideKind} variant={variant} />
             </div>
@@ -1077,28 +1081,10 @@ function SideIllustration({ kind, variant }) {
   if (kind === "doc") {
     const segments = [
       {
-        id: "S01",
-        type: "Speech",
-        speaker: "Mark Sanderson",
-        text: "Welcome to our program! We have many interesting updates on our work around the world.",
-      },
-      {
         id: "S02",
         type: "Speech",
-        speaker: "Mark Sanderson",
-        text: 'Soon the 2026 "Eternal Happiness" Conventions will begin! It\u2019s encouraging to see many families make arrangements to attend.',
-      },
-      {
-        id: "S03",
-        type: "Speech",
-        speaker: "Mark Sanderson",
-        text: "This year\u2019s convention includes over 60 videos. Much work goes into preparing each part of the spiritual program.",
-      },
-      {
-        id: "S04",
-        type: "Speech",
-        speaker: "Mark Sanderson",
-        text: "We look forward to seeing the six music-video presentations prepared for this year\u2019s convention.",
+        speaker: "Geoffrey W. Jackson",
+        text: "Consider, first of all, the good way that we can test out Jehovah. When we think about showing faith in Jehovah, having trust in him, and then obeying him\u2014not waiting for Jehovah to make the first move but rather for us, first of all, to obey him, to reach out and do what he wants us to do\u2014that, in a figurative way, is putting him to the test, because he\u2019s already promised to bless us. By us obeying him, it means that we are showing faith. [Translator: Jehovah has already promised to bless us if we obey him. So we test him out in the right way when we show that we have faith in his promise by obeying him. That means that we do not wait for Jehovah to bless us before we obey him, but instead we do what Jehovah wants us to do and trust that he will bless us] It also means that we don\u2019t complain about the things that Jehovah allows to occur in our life, and we don\u2019t take unnecessary risks. We don\u2019t try to fool him by acting one way but then pretending to be another way [Meaning: by pretending to be obedient, although what we do is disobedient]. So put quite simply, again, the right way for us to test out Jehovah means to trust him, to have faith in him, to obey him even if it may be difficult to do so.",
       },
     ];
     return (
@@ -1134,25 +1120,6 @@ function SideIllustration({ kind, variant }) {
             PG. 1
           </div>
         </div>
-        {/* Program title */}
-        <div
-          style={{
-            borderBottom: `1px dashed ${v.rule}`,
-            padding: "12px 20px",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: v.monoFamily,
-              fontSize: 15,
-              color: v.ink,
-              fontWeight: 600,
-              letterSpacing: "0.04em",
-            }}
-          >
-            2026 Governing Body Update #3
-          </div>
-        </div>
         {/* Segments */}
         <div
           style={{ padding: "8px 0", display: "flex", flexDirection: "column" }}
@@ -1185,7 +1152,7 @@ function SideIllustration({ kind, variant }) {
               <div
                 style={{
                   fontFamily: v.monoFamily,
-                  fontSize: 14,
+                  fontSize: 15.5,
                   lineHeight: 1.6,
                   color: v.ink,
                   paddingLeft: 16,
@@ -1408,16 +1375,42 @@ function Slide07({ variant }) {
         "Create subtitles where required",
         "Enter and verify metadata used downstream",
       ]}
-      tools={["Scripts", "Subtitles", "Metadata"]}
+      tools={[""]}
       sideKind="doc"
       subtitleLines={[
-        "Welcome to our program!",
-        "We have many interesting updates on our work around the world.",
-        "Soon the 2026 \u201cEternal Happiness\u201d Conventions will begin!",
-        "It\u2019s encouraging to see many families make arrangements to attend.",
-        "This year\u2019s convention includes over 60 videos.",
-        "Much work goes into preparing each part of the spiritual program.",
-        "We look forward to seeing the six music-video presentations.",
+        // S01
+        "How is it that we can \u2018test Jehovah out\u2019?",
+        "There is a wrong way and a right way to put Jehovah to the test.",
+        "It means knowing the difference between faith and stupidity.",
+        // S02
+        "Consider the good way that we can test out Jehovah.",
+        "Showing faith means obeying him\u2014not waiting for Jehovah to make the first move.",
+        "By obeying him, we are showing faith and trusting his promise to bless us.",
+        "We don\u2019t complain, take unnecessary risks, or try to fool him.",
+        "The right way: to trust, to have faith, to obey\u2014even if difficult.",
+        // S03
+        "What about the wrong way to test out Jehovah?",
+        "Selfishly complaining about things Jehovah allows to occur in our life\u2014",
+        "or doing something careless and expecting a miracle to save us\u2014",
+        "all of those things really would be a stupid act on our part.",
+        // S04
+        "\u2018You must not put Jehovah your God to the test the way you put him to the test at Massah.\u2019",
+        "The Israelites lacked faith\u2014they pushed Jehovah, demanding immediate satisfaction.",
+        "They then acted in stupidity by going on without Jehovah\u2019s support\u2014and were defeated.",
+        // S05
+        "Jehovah feels hurt when we put him to the test in the wrong way.",
+        "\u2018Again and again they put God to the test, and they grieved the Holy One of Israel.\u2019",
+        "Avoid dictating to Jehovah. Avoid complaining about your expectations.",
+        "Avoid taking unnecessary risks\u2014that\u2019s why safety standards matter.",
+        // S06
+        "Awake! (1953): \u2018We dare not put God to the test with irrational actions.\u2019",
+        "\u2018We cannot expect God to furnish angels to protect us despite what we do.\u2019",
+        "We need to measure what we\u2019re doing\u2014is it an act of faith, or just stupidity?",
+        // S07
+        "Jesus showed great wisdom. Even when endangered, he trusted Jehovah.",
+        "When Satan tempted him to jump off the temple, Jesus said: \u2018You mustn\u2019t test Jehovah.\u2019",
+        "Whenever we make a decision, let\u2019s prayerfully consider:",
+        "Is this an act of faith\u2014or stupidity?",
       ]}
     />
   );
@@ -1604,7 +1597,7 @@ function Slide09({ variant }) {
                 gap: 28,
                 marginTop: 6,
                 fontFamily: v.monoFamily,
-                fontSize: 18,
+                fontSize: 16,
                 color: v.muted,
                 letterSpacing: "0.06em",
               }}
@@ -1702,6 +1695,94 @@ function Slide09({ variant }) {
 }
 
 // ============================================================
+// WORLD MAP — used by Slide10
+// ============================================================
+function WorldMap({ variant }) {
+  const v = VARIANTS[variant];
+
+  // The SVG file uses equirectangular projection, calibrated from path data:
+  //   x = lon * 7.678 + 1301.8
+  //   y = -lat * 7.678 + 681.5
+  // The overlay viewBox matches the SVG native size (2754×1398) so both
+  // img and overlay letterbox identically → pins stay on the right countries.
+  const W = 2754,
+    H = 1398;
+  const pin = (lat, lon) => ({
+    x: Math.round(lon * 7.678 + 1301.8),
+    y: Math.round(-lat * 7.678 + 681.5),
+  });
+
+  const dots = [
+    { name: "Norway", ...pin(60.5, 8.5), dx: 33, dy: -28, anchor: "start" },
+    { name: "Britain", ...pin(54.0, -2.5), dx: -33, dy: 55, anchor: "end" },
+    { name: "Portugal", ...pin(39.5, -8.0), dx: -33, dy: 55, anchor: "end" },
+    { name: "Mexico", ...pin(23.6, -102.5), dx: 0, dy: -38, anchor: "middle" },
+    { name: "Ecuador", ...pin(-1.8, -78.2), dx: 33, dy: 55, anchor: "start" },
+    {
+      name: "Mozambique",
+      ...pin(-18.7, 35.5),
+      dx: 33,
+      dy: 55,
+      anchor: "start",
+    },
+    { name: "Malaysia", ...pin(4.2, 108.0), dx: 33, dy: 55, anchor: "start" },
+    { name: "Taiwan", ...pin(23.7, 121.0), dx: 33, dy: -28, anchor: "start" },
+  ];
+
+  const mapFilter =
+    variant === "C"
+      ? "grayscale(1) invert(1) opacity(0.25)"
+      : "grayscale(1) opacity(0.3)";
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <img
+        src="world-map.svg"
+        alt="World map"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+          display: "block",
+          filter: mapFilter,
+        }}
+      />
+      {/* Pin overlay — viewBox matches SVG native dimensions so letterboxing is identical */}
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {dots.map(({ name, x, y, dx, dy, anchor }) => (
+          <g key={name}>
+            <circle cx={x} cy={y} r={25} fill={v.accent} opacity={0.25} />
+            <circle cx={x} cy={y} r={14} fill={v.accent} />
+            <text
+              x={x + dx}
+              y={y + dy}
+              textAnchor={anchor}
+              fontFamily="'JetBrains Mono', 'Courier New', monospace"
+              fontSize={33}
+              fontWeight="600"
+              fill={v.accent}
+              letterSpacing="0.06em"
+            >
+              {name.toUpperCase()}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+// ============================================================
 // 10 — SUPPORT (the human-facing side of the team)
 // ============================================================
 function Slide10({ variant }) {
@@ -1710,7 +1791,7 @@ function Slide10({ variant }) {
   const pillars = [
     {
       code: "DOCS",
-      title: "Documentation",
+      title: "Publication Processing Documentation",
       body: "Comprehensive guides covering the full video production workflow — from capture to delivery — so teams can self-serve at any stage of a project.",
       items: [
         "Production checklists & best practices",
@@ -1730,12 +1811,6 @@ function Slide10({ variant }) {
     },
   ];
 
-  const locations = [
-    { region: "Americas", tz: "UTC−5 / −8" },
-    { region: "Europe–Africa", tz: "UTC+0 / +2" },
-    { region: "Asia–Pacific", tz: "UTC+8 / +11" },
-  ];
-
   return (
     <SlideFrame
       variant={variant}
@@ -1743,207 +1818,152 @@ function Slide10({ variant }) {
       totalSlides={TOTAL}
       section="03.6 / SUPPORT"
     >
-      <SlideInner style={{ flexDirection: "column", gap: 32 }}>
+      <SlideInner style={{ flexDirection: "column", gap: 28 }}>
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 32 }}>
-          <div style={{ flex: 1 }}>
-            <Eyebrow variant={variant} style={{ marginBottom: 18 }}>
-              FN 06 · SUPPORT
-            </Eyebrow>
-            <BigTitle variant={variant}>
-              Support that{" "}
-              <span
-                style={{
-                  fontStyle: v.titleItalicAccent ? "italic" : "normal",
-                  color: v.accent,
-                }}
-              >
-                meets the user where they are.
-              </span>
-            </BigTitle>
-          </div>
-          {/* <Body
-            variant={variant}
-            size={26}
-            style={{ flex: "0 0 420px", color: v.muted, marginBottom: 8 }}
-          >
-            Two modes of support — clear documentation and direct human access —
-            backed by a team spread across time zones.
-          </Body> */}
-        </div>
-
-        {/* Two pillars */}
-        <div style={{ display: "flex", gap: 28, flex: 1, minHeight: 0 }}>
-          {pillars.map(({ code, title, body, items }, i) => (
-            <div
-              key={code}
-              data-anim="up"
+        <div>
+          <Eyebrow variant={variant} style={{ marginBottom: 18 }}>
+            FN 06 · SUPPORT
+          </Eyebrow>
+          <BigTitle variant={variant}>
+            Support that{" "}
+            <span
               style={{
-                "--anim-delay": i + 2,
-                flex: 1,
-                border: `1px solid ${i === 1 ? v.accent : v.rule}`,
-                background:
-                  i === 1
-                    ? `color-mix(in oklch, ${v.accent} 8%, transparent)`
-                    : "transparent",
-                padding: "28px 32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
+                fontStyle: v.titleItalicAccent ? "italic" : "normal",
+                color: v.accent,
               }}
             >
-              <span
-                style={{
-                  fontFamily: v.monoFamily,
-                  fontSize: 18,
-                  color: v.accent,
-                  letterSpacing: "0.1em",
-                }}
-              >
-                {code}
-              </span>
-              <div
-                style={{
-                  fontFamily: v.titleFamily,
-                  fontSize: 38,
-                  fontWeight: v.titleWeight,
-                  color: v.ink,
-                  lineHeight: 1.1,
-                }}
-              >
-                {title}
-              </div>
-              <div
-                style={{
-                  fontFamily: v.bodyFamily,
-                  fontSize: 22,
-                  color: v.muted,
-                  lineHeight: 1.5,
-                }}
-              >
-                {body}
-              </div>
-              <div
-                style={{
-                  marginTop: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                  paddingTop: 16,
-                  borderTop: `1px solid ${v.rule}`,
-                }}
-              >
-                {items.map((item) => (
-                  <div
-                    key={item}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      fontFamily: v.bodyFamily,
-                      fontSize: 21,
-                      color: v.ink,
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: v.accent,
-                        fontFamily: v.monoFamily,
-                        fontSize: 18,
-                        flexShrink: 0,
-                      }}
-                    >
-                      &mdash;
-                    </span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+              meets the user where they are.
+            </span>
+          </BigTitle>
         </div>
 
-        {/* Timezone strip */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 24,
-            borderTop: `1px solid ${v.rule}`,
-            paddingTop: 20,
-          }}
-        >
+        {/* Two columns: pillars + map */}
+        <div style={{ display: "flex", gap: 28, flex: 1, minHeight: 0 }}>
+          {/* Left: pillars */}
           <div
             style={{
-              fontFamily: v.monoFamily,
-              fontSize: 15,
-              color: v.muted,
-              letterSpacing: "0.08em",
-              whiteSpace: "nowrap",
+              flex: "0 0 44%",
+              display: "flex",
+              flexDirection: "column",
+              gap: 24,
             }}
           >
-            TEAM COVERAGE
-          </div>
-          {locations.map(({ region, tz }, i) => (
-            <div
-              key={region}
-              data-anim="fade"
-              style={{
-                "--anim-delay": i + 6,
-                display: "flex",
-                alignItems: "center",
-                gap: 14,
-                padding: "10px 20px",
-                border: `1px solid ${v.rule}`,
-                flex: 1,
-              }}
-            >
+            {pillars.map(({ code, title, body, items }, i) => (
               <div
+                key={code}
+                data-anim="up"
                 style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: v.accent,
-                  flexShrink: 0,
+                  "--anim-delay": i + 2,
+                  flex: 1,
+                  border: `1px solid ${i === 1 ? v.accent : v.rule}`,
+                  background:
+                    i === 1
+                      ? `color-mix(in oklch, ${v.accent} 8%, transparent)`
+                      : "transparent",
+                  padding: "24px 28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
                 }}
-              />
-              <div>
+              >
+                <span
+                  style={{
+                    fontFamily: v.monoFamily,
+                    fontSize: 18,
+                    color: v.accent,
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  {code}
+                </span>
+                <div
+                  style={{
+                    fontFamily: v.titleFamily,
+                    fontSize: 34,
+                    fontWeight: v.titleWeight,
+                    color: v.ink,
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {title}
+                </div>
                 <div
                   style={{
                     fontFamily: v.bodyFamily,
                     fontSize: 20,
-                    color: v.ink,
+                    color: v.muted,
+                    lineHeight: 1.5,
                   }}
                 >
-                  {region}
+                  {body}
                 </div>
                 <div
                   style={{
-                    fontFamily: v.monoFamily,
-                    fontSize: 15,
-                    color: v.muted,
-                    letterSpacing: "0.05em",
+                    marginTop: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                    paddingTop: 14,
+                    borderTop: `1px solid ${v.rule}`,
                   }}
                 >
-                  {tz}
+                  {items.map((item) => (
+                    <div
+                      key={item}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        fontFamily: v.bodyFamily,
+                        fontSize: 19,
+                        color: v.ink,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: v.accent,
+                          fontFamily: v.monoFamily,
+                          fontSize: 16,
+                          flexShrink: 0,
+                        }}
+                      >
+                        &mdash;
+                      </span>
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Right: world map */}
           <div
+            data-anim="fade"
             style={{
-              fontFamily: v.monoFamily,
-              fontSize: 15,
-              color: v.muted,
-              letterSpacing: "0.06em",
-              textAlign: "right",
-              lineHeight: 1.4,
-              whiteSpace: "nowrap",
+              "--anim-delay": 4,
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+              border: `1px solid ${v.rule}`,
+              padding: "20px 20px 16px",
             }}
           >
-            MOST TIME ZONES
-            <br />
-            COVERED
+            <div
+              style={{
+                fontFamily: v.monoFamily,
+                fontSize: 15,
+                color: v.muted,
+                letterSpacing: "0.08em",
+                flexShrink: 0,
+              }}
+            >
+              TEAM COVERAGE — 8 COUNTRIES
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <WorldMap variant={variant} />
+            </div>
           </div>
         </div>
       </SlideInner>
