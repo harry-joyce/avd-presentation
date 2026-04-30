@@ -1709,14 +1709,14 @@ function Slide09({ variant }) {
             <MixSeg
               pct={22}
               color={v.muted}
-              label="CORRECTIONS · 22%"
+              label="SEASONAL / SPECIAL · 22%"
               textColor={v.bg}
               variant={variant}
             />
             <MixSeg
               pct={11}
               color={v.rule}
-              label="SEASONAL / SPECIAL · 11%"
+              label="CORRECTIONS · 11%"
               textColor={v.ink}
               variant={variant}
             />
