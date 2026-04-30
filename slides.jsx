@@ -1349,8 +1349,8 @@ function Slide05({ variant }) {
       tasks={[
         "Review on-screen text (OST) elements for translatability",
         "Rework and compose OST text using MEPS Composition and PowerPoint",
-        "Create structured audio templates for translation recording",
         "Integrate composed OST elements into video via After Effects",
+        "Create structured audio templates for translation recording",
         "Perform basic video cleanup and alignment",
       ]}
       tools={["MEPS Composition", "Audacity", "After Effects", "OST"]}
