@@ -966,65 +966,11 @@ function SideIllustration({ kind, variant }) {
   };
   if (kind === "waveform") {
     return (
-      <div style={box}>
-        <div
-          style={{
-            fontFamily: v.monoFamily,
-            fontSize: 18,
-            color: v.muted,
-            letterSpacing: "0.1em",
-          }}
-        >
-          TRACK 01 · OST_ENG · 48 kHz / 16-bit
-        </div>
-        <Waveform variant={variant} height={120} bars={100} animated />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontFamily: v.monoFamily,
-            fontSize: 16,
-            color: v.muted,
-          }}
-        >
-          <span>00:00:00:00</span>
-          <span>00:00:15:12</span>
-          <span>00:00:30:00</span>
-        </div>
-        <div
-          style={{
-            marginTop: 12,
-            fontFamily: v.monoFamily,
-            fontSize: 18,
-            color: v.muted,
-            letterSpacing: "0.08em",
-          }}
-        >
-          MARKERS
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {[
-            ["M01", "TITLE CARD IN"],
-            ["M02", "V/O SEGMENT A"],
-            ["M03", "OST HANDOFF"],
-          ].map(([id, lbl]) => (
-            <div
-              key={id}
-              style={{
-                display: "flex",
-                gap: 16,
-                fontFamily: v.monoFamily,
-                fontSize: 18,
-                lineHeight: 1.3,
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span style={{ color: v.accent }}>{id}</span>
-              <span>{lbl}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <img
+        src="assets/meps-infographic-example.png"
+        alt="MEPS infographic example showing timeline layout"
+        style={{ width: "100%", display: "block" }}
+      />
     );
   }
   if (kind === "package") {
@@ -1074,6 +1020,31 @@ function SideIllustration({ kind, variant }) {
           }}
         >
           STATUS · READY FOR LANGUAGES
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            fontFamily: v.monoFamily,
+            fontSize: 18,
+            color: v.muted,
+            letterSpacing: "0.1em",
+          }}
+        >
+          TRACK 01 · OST_ENG · 48 kHz / 16-bit
+        </div>
+        <Waveform variant={variant} height={120} bars={100} animated />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontFamily: v.monoFamily,
+            fontSize: 16,
+            color: v.muted,
+          }}
+        >
+          <span>00:00:00:00</span>
+          <span>00:00:15:12</span>
+          <span>00:00:30:00</span>
         </div>
       </div>
     );
@@ -1375,7 +1346,7 @@ function Slide06({ variant }) {
         "Configure containers for vernacular audio, OST, and subtitles uploads",
         "Ensure MediaCenter outputs transcode correctly to final MP4",
       ]}
-      tools={["MediaCenter", "MP4", "WAV", "Containers"]}
+      tools={[""]}
       sideKind="package"
     />
   );
