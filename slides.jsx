@@ -168,7 +168,7 @@ function Slide02({ variant }) {
           <Eyebrow variant={variant}>01 — WHO WE ARE</Eyebrow>
           <div style={{ marginLeft: "auto", display: "flex", gap: 56 }}>
             <MiniStat n="27" label="Team members" variant={variant} />
-            <MiniStat n="10" label="Countries" variant={variant} />
+            <MiniStat n="9" label="Countries" variant={variant} />
             <MiniStat n="9" label="Role types" variant={variant} />
           </div>
         </div>
@@ -466,7 +466,7 @@ function Slide03({ variant }) {
           }}
         >
           {stages.map((s, i) => {
-            const ours = i >= 1 && i <= 4;
+            const ours = (i >= 1 && i <= 4) || i === 6;
             return (
               <React.Fragment key={s.label}>
                 <div
@@ -712,7 +712,7 @@ function Slide04({ variant }) {
             maxWidth: 1100,
           }}
         >
-          Each function is tightly connected. A single video touches all five
+          Each function is tightly connected. A single video touches all six
           before it is ready for the world&rsquo;s languages.
         </div>
       </SlideInner>
@@ -1085,9 +1085,16 @@ function SideIllustration({ kind, variant }) {
         type: "Speech",
         speaker: "Mark Noumair",
         text: [
-          { t: "He had to cultivate this deep attachment for his Father\u2014cultivate this deep love. How? By observing his Father\u2019s personality. He would observe closely how his Father used his power, his authority, his strength in behalf of people\u2014\u2018those crushed, those lowly in spirit.\u2019 He watched his Father deal with " },
-          { t: "Ruth the Moabite girl\u2014a Moabite girl from a pagan nation. Might he have thought: \u2018Now, a Moabite girl? Weren\u2019t these the Moabite women\u2014? Weren\u2019t these the very women that lured the Israelite men into immorality right on the threshold of the Promised Land?\u2019", bold: true },
-          { t: " True. But his Father saw that this girl was different. She was different. His Father did not put people in categories; he did not stereotype individuals. \u2018Oh, that\u2019s the Moabite girl. I\u2019m not going to deal with her.\u2019 No. Jehovah God looked at Ruth as an individual." },
+          {
+            t: "He had to cultivate this deep attachment for his Father\u2014cultivate this deep love. How? By observing his Father\u2019s personality. He would observe closely how his Father used his power, his authority, his strength in behalf of people\u2014\u2018those crushed, those lowly in spirit.\u2019 He watched his Father deal with ",
+          },
+          {
+            t: "Ruth the Moabite girl\u2014a Moabite girl from a pagan nation. Might he have thought: \u2018Now, a Moabite girl? Weren\u2019t these the Moabite women\u2014? Weren\u2019t these the very women that lured the Israelite men into immorality right on the threshold of the Promised Land?\u2019",
+            bold: true,
+          },
+          {
+            t: " True. But his Father saw that this girl was different. She was different. His Father did not put people in categories; he did not stereotype individuals. \u2018Oh, that\u2019s the Moabite girl. I\u2019m not going to deal with her.\u2019 No. Jehovah God looked at Ruth as an individual.",
+          },
         ],
       },
     ];
@@ -1165,9 +1172,13 @@ function SideIllustration({ kind, variant }) {
               >
                 {Array.isArray(seg.text)
                   ? seg.text.map((part, i) =>
-                      part.bold
-                        ? <strong key={i}>{part.t}</strong>
-                        : <span key={i} style={{ color: v.muted }}>{part.t}</span>
+                      part.bold ? (
+                        <strong key={i}>{part.t}</strong>
+                      ) : (
+                        <span key={i} style={{ color: v.muted }}>
+                          {part.t}
+                        </span>
+                      ),
                     )
                   : seg.text}
               </div>
