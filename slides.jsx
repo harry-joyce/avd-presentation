@@ -969,7 +969,7 @@ function SideIllustration({ kind, variant }) {
       <img
         src="assets/meps-infographic-example.png"
         alt="MEPS infographic example showing timeline layout"
-        style={{ width: "100%", display: "block" }}
+        style={{ width: "100%", display: "block", borderRadius: 6, boxShadow: `0 0 0 1px ${v.rule}, 0 4px 24px rgba(0,0,0,0.08)` }}
       />
     );
   }
