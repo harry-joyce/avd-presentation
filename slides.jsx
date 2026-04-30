@@ -1083,8 +1083,12 @@ function SideIllustration({ kind, variant }) {
       {
         id: "S02",
         type: "Speech",
-        speaker: "Geoffrey W. Jackson",
-        text: "Consider, first of all, the good way that we can test out Jehovah. When we think about showing faith in Jehovah, having trust in him, and then obeying him\u2014not waiting for Jehovah to make the first move but rather for us, first of all, to obey him, to reach out and do what he wants us to do\u2014that, in a figurative way, is putting him to the test, because he\u2019s already promised to bless us. By us obeying him, it means that we are showing faith. [Translator: Jehovah has already promised to bless us if we obey him. So we test him out in the right way when we show that we have faith in his promise by obeying him. That means that we do not wait for Jehovah to bless us before we obey him, but instead we do what Jehovah wants us to do and trust that he will bless us] It also means that we don\u2019t complain about the things that Jehovah allows to occur in our life, and we don\u2019t take unnecessary risks. We don\u2019t try to fool him by acting one way but then pretending to be another way [Meaning: by pretending to be obedient, although what we do is disobedient]. So put quite simply, again, the right way for us to test out Jehovah means to trust him, to have faith in him, to obey him even if it may be difficult to do so.",
+        speaker: "Mark Noumair",
+        text: [
+          { t: "He had to cultivate this deep attachment for his Father\u2014cultivate this deep love. How? By observing his Father\u2019s personality. He would observe closely how his Father used his power, his authority, his strength in behalf of people\u2014\u2018those crushed, those lowly in spirit.\u2019 He watched his Father deal with " },
+          { t: "Ruth the Moabite girl\u2014a Moabite girl from a pagan nation. Might he have thought: \u2018Now, a Moabite girl? Weren\u2019t these the Moabite women\u2014? Weren\u2019t these the very women that lured the Israelite men into immorality right on the threshold of the Promised Land?\u2019", bold: true },
+          { t: " True. But his Father saw that this girl was different. She was different. His Father did not put people in categories; he did not stereotype individuals. \u2018Oh, that\u2019s the Moabite girl. I\u2019m not going to deal with her.\u2019 No. Jehovah God looked at Ruth as an individual." },
+        ],
       },
     ];
     return (
@@ -1152,14 +1156,20 @@ function SideIllustration({ kind, variant }) {
               <div
                 style={{
                   fontFamily: v.monoFamily,
-                  fontSize: 15.5,
+                  fontSize: 19,
                   lineHeight: 1.6,
                   color: v.ink,
                   paddingLeft: 16,
                   borderLeft: `2px solid ${v.rule}`,
                 }}
               >
-                {seg.text}
+                {Array.isArray(seg.text)
+                  ? seg.text.map((part, i) =>
+                      part.bold
+                        ? <strong key={i}>{part.t}</strong>
+                        : <span key={i} style={{ color: v.muted }}>{part.t}</span>
+                    )
+                  : seg.text}
               </div>
             </div>
           ))}
@@ -1379,38 +1389,50 @@ function Slide07({ variant }) {
       sideKind="doc"
       subtitleLines={[
         // S01
-        "How is it that we can \u2018test Jehovah out\u2019?",
-        "There is a wrong way and a right way to put Jehovah to the test.",
-        "It means knowing the difference between faith and stupidity.",
+        "Can there really be four words that you can base your life on?",
+        "We look to our Exemplar, Christ Jesus, for the answer.",
+        "In one verse, Jesus reveals what governed his every action and decision.",
+        "Four words that he lived by\u2014found at John 14:31:",
+        "\u2018I love the Father.\u2019 The most powerful bond in the universe.",
         // S02
-        "Consider the good way that we can test out Jehovah.",
-        "Showing faith means obeying him\u2014not waiting for Jehovah to make the first move.",
-        "By obeying him, we are showing faith and trusting his promise to bless us.",
-        "We don\u2019t complain, take unnecessary risks, or try to fool him.",
-        "The right way: to trust, to have faith, to obey\u2014even if difficult.",
+        "But how did this love develop? How did this unbreakable bond develop?",
+        "The Son of God was not created with self-sacrificing love already in place.",
+        "He had to cultivate this deep attachment for his Father.",
+        "He watched how his Father used his power in behalf of those crushed in spirit.",
+        "His Father did not put people in categories; he did not stereotype individuals.",
+        "The Son\u2019s love grew as his Father allowed a book to be named after Ruth\u2014a Moabite girl.",
         // S03
-        "What about the wrong way to test out Jehovah?",
-        "Selfishly complaining about things Jehovah allows to occur in our life\u2014",
-        "or doing something careless and expecting a miracle to save us\u2014",
-        "all of those things really would be a stupid act on our part.",
+        "But watching and admiring his Father wasn\u2019t enough\u2014he went further.",
+        "His love for his Father began to shape his decisions and actions.",
+        "He didn\u2019t just say the words \u2018I love the Father.\u2019 He lived those words.",
+        "\u2018I am doing just as the Father has commanded me to do.\u2019\u2014John 14:31",
+        "When faced with the Syrophoenician woman, Jesus saw a time to bend in response to higher principles.",
         // S04
-        "\u2018You must not put Jehovah your God to the test the way you put him to the test at Massah.\u2019",
-        "The Israelites lacked faith\u2014they pushed Jehovah, demanding immediate satisfaction.",
-        "They then acted in stupidity by going on without Jehovah\u2019s support\u2014and were defeated.",
+        "Another example: what Jesus learned from his Father about forgiveness.",
+        "He watched his Father forgive David for adultery and the murder of Uriah.",
+        "Jehovah is a largehearted Forgiver\u2014always on the lookout to forgive.",
+        "Jesus viewed forgiving others as an opportunity to imitate his Father.",
+        "\u2018Like Father, like Son.\u2019",
         // S05
-        "Jehovah feels hurt when we put him to the test in the wrong way.",
-        "\u2018Again and again they put God to the test, and they grieved the Holy One of Israel.\u2019",
-        "Avoid dictating to Jehovah. Avoid complaining about your expectations.",
-        "Avoid taking unnecessary risks\u2014that\u2019s why safety standards matter.",
+        "Now we take this discussion out of the classroom and apply it to real life.",
+        "You don\u2019t know what tests of faith are going to come upon you.",
+        "But if you know these four words, you know enough.",
+        "Etch \u2018I love the Father\u2019 on your minds and on your hearts.",
+        "Let these four words govern every decision and action of yours.",
+        "Show by your dealings with others that your heartfelt desire is to please your heavenly Father.",
         // S06
-        "Awake! (1953): \u2018We dare not put God to the test with irrational actions.\u2019",
-        "\u2018We cannot expect God to furnish angels to protect us despite what we do.\u2019",
-        "We need to measure what we\u2019re doing\u2014is it an act of faith, or just stupidity?",
+        "As you go from here, who will be your \u2018Ruth\u2019?",
+        "Show that you don\u2019t put people in categories.",
+        "Who will be your \u2018Syrophoenician woman\u2019? Seize opportunities to be more flexible.",
+        "Who will be your imperfect, disappointing \u2018apostles\u2019?",
+        "Be on the lookout for opportunities to be more forgiving, more patient.",
+        "\u2018I love Jehovah above everything, and I will overcome my negative feelings.\u2019",
         // S07
-        "Jesus showed great wisdom. Even when endangered, he trusted Jehovah.",
-        "When Satan tempted him to jump off the temple, Jesus said: \u2018You mustn\u2019t test Jehovah.\u2019",
-        "Whenever we make a decision, let\u2019s prayerfully consider:",
-        "Is this an act of faith\u2014or stupidity?",
+        "When your love for Jehovah overrides every other concern\u2014not much else matters.",
+        "Think deeply on Jehovah\u2019s way of doing things, love those ways, imitate your heavenly Father.",
+        "\u2018I set the pattern for you.\u2019\u2014John 13:15",
+        "You are clothed with the most unbreakable bond in the universe\u2014",
+        "empowered by the unfailing four words to live by: \u2018I love the Father.\u2019",
       ]}
     />
   );
