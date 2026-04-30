@@ -138,7 +138,7 @@ function Slide02({ variant }) {
     ["BRITAIN", "", 1],
     ["SCANDINAVIA", "", 1],
     ["PORTUGAL", "", 1],
-    ["SOUTH AFRICA", "", 1],
+    ["MOZAMBIQUE", "", 1],
     ["CENTRAL AMERICA", "", 1],
     ["MALAYSIA", "", 1],
     ["TAIWAN", "", 1],
@@ -2666,7 +2666,7 @@ function Slide14({ variant }) {
       role: "AUDIO & SONG SUPPORT",
       members: [
         { name: "Abner Aquiáhuatl", note: "Central America" },
-        { name: "Matiu Piata Bevan", note: "South Africa" },
+        { name: "Matiu Piata Bevan", note: "Mozambique" },
         { name: "Desmond Chong", note: "Malaysia" },
         { name: "David Zhan", note: "Taiwan" },
       ],
