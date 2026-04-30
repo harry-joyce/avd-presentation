@@ -1700,23 +1700,23 @@ function Slide09({ variant }) {
             }}
           >
             <MixSeg
-              pct={67}
+              pct={60}
               color={`color-mix(in oklch, ${v.ink} 85%, ${v.muted})`}
-              label="REGULAR RELEASES · 67%"
+              label="REGULAR RELEASES · 60%"
               textColor={v.bg}
               variant={variant}
             />
             <MixSeg
-              pct={22}
+              pct={28}
               color={v.muted}
-              label="SEASONAL / SPECIAL · 22%"
+              label="SEASONAL / SPECIAL · 28%"
               textColor={v.bg}
               variant={variant}
             />
             <MixSeg
-              pct={11}
+              pct={12}
               color={v.rule}
-              label="CORRECTIONS · 11%"
+              label="CORRECTIONS · 12%"
               textColor={v.ink}
               variant={variant}
             />
