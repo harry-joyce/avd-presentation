@@ -1175,7 +1175,7 @@ function SideIllustration({ kind, variant }) {
                       part.bold ? (
                         <strong key={i}>{part.t}</strong>
                       ) : (
-                        <span key={i} style={{ color: v.muted }}>
+                        <span key={i} style={{ color: v.muted, opacity: 0.5 }}>
                           {part.t}
                         </span>
                       ),
